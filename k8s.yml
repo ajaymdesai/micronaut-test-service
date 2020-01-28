@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "micronaut-test"
+  name: "com.ajaymdesai.micronaut-test"
 spec:
   selector:
     matchLabels:
@@ -12,8 +12,8 @@ spec:
         app: "micronaut-test"
     spec:
       containers:
-        - name: "micronaut-test"
-          image: "gcr.io/micronaut-test/jib-image"
+        - name: "com.ajaymdesai.micronaut-test"
+          image: "gcr.io/com.ajaymdesai.micronaut-test/jib-image"
           ports:
             - name: http
               containerPort: 8080
@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "micronaut-test"
+  name: "com.ajaymdesai.micronaut-test"
 spec:
   selector:
     app: "micronaut-test"

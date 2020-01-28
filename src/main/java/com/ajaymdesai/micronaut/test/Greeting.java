@@ -1,9 +1,9 @@
-package micronaut.test;
+package com.ajaymdesai.micronaut.test;
 
 import io.micronaut.core.annotation.Introspected;
 
 @Introspected
-public class Greeting {
+public final class Greeting {
 
     private String name;
     private String greeting;
@@ -17,25 +17,25 @@ public class Greeting {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String myName) {
+        this.name = myName;
     }
 
     public String getGreeting() {
         return greeting;
     }
 
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
+    public void setGreeting(final String myGreeting) {
+        this.greeting = myGreeting;
     }
 
-    public Greeting withName(String name) {
-        this.setName(name);
+    public Greeting withName(final String myName) {
+        this.setName(myName);
         return this;
     }
 
-    public Greeting withGreeting(String greeting) {
-        this.setGreeting(greeting);
+    public Greeting withGreeting(final String myGreeting) {
+        this.setGreeting(myGreeting);
         return this;
     }
 

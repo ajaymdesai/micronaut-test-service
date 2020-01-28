@@ -1,5 +1,5 @@
 profile: service
-defaultPackage: micronaut.test
+defaultPackage: com.ajaymdesai.micronaut.test
 ---
 testFramework: junit
 sourceLanguage: java

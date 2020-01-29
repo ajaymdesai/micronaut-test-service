@@ -7,30 +7,21 @@ micronaut:
             swagger:
                 paths: classpath:META-INF/swagger
                 mapping: ${application.api.swagger.path}/**
-
-
+---
+micronaut:
+    ssl:
+        enabled: fals
+        buildSelfSigned: true
 ---
 micronaut:
     security:
-        enabled: false
+        enabled: true
         endpoints:
             login:
                 enabled: true
-            oauth:
-                enabled: true
         token:
-            jwt:
-                enabled: false
-                signatures:
-                    secret:
-                        generator:
-                            secret: "${JWT_GENERATOR_SIGNATURE_SECRET:secret}"
----
-tracing:
-    jaeger:
-        enabled: true
-        smapler:
-            probability: 1
+            basic-auth:
+                enabled: true
 ---
 micronaut:
     http:
@@ -48,4 +39,4 @@ application:
             deepLinking: true
             urls:
                 - name: micronaut-test
-                  url: /api-docs/swagger/micronaut-test-0.0.yml
+                  url: /api-docs/swagger/com.ajaymdesai.micronaut-test-1.0.yml

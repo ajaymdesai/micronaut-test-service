@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @OpenAPIDefinition(
     info = @Info(
         title = "com.ajaymdesai.micronaut-test",
-        version = "0.0"
+        version = "1.0"
     )
 )
 public final class Application {

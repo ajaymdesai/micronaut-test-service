@@ -1,9 +1,8 @@
 package com.ajaymdesai.micronaut.test.swagger;
 
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.*;
+import io.micronaut.security.annotation.Secured;
 import io.micronaut.validation.Validated;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -17,6 +16,7 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 
 @Hidden
+@Secured("isAuthenticated()")
 @Controller("/api")
 @Validated
 public class SwaggerController {
@@ -26,6 +26,7 @@ public class SwaggerController {
 
     @View("swagger/index")
     @Get
+    @Produces(MediaType.TEXT_HTML)
     public SwaggerConfig index() {
         LoggerFactory.getLogger(SwaggerController.class).info("Trying to render swagger-view");
         return config;
@@ -33,6 +34,7 @@ public class SwaggerController {
 
     @View("swagger/index")
     @Get("/{url}")
+    @Produces(MediaType.TEXT_HTML)
     public SwaggerConfig renderSpec(@NotNull String url) {
         return new SwaggerConfig.Builder()
                 .withDeepLinking(config.isDeepLinking())
@@ -47,6 +49,7 @@ public class SwaggerController {
 
     @View("swagger/index")
     @Post
+    @Produces(MediaType.TEXT_HTML)
     public SwaggerConfig renderSpecs(@Body @NotEmpty List<SwaggerConfig.URIConfig> urls) {
         return new SwaggerConfig.Builder()
                 .withDeepLinking(config.isDeepLinking())

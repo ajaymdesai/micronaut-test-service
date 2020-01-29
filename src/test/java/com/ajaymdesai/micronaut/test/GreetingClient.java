@@ -6,13 +6,13 @@ import io.micronaut.http.client.annotation.Client;
 import io.reactivex.Single;
 import java.util.UUID;
 
-@Client("/")
+@Client("/greet")
 public interface GreetingClient {
 
     @Get
     Single<String> index();
 
-    @Get(value = "/greet/{name}")
+    @Get(value = "/{name}")
     @Header(name="x-request-id", value = "123-456-7234")
     Single<Greeting> greet(String name);
 }

@@ -7,7 +7,7 @@ plugins {
 
 
 
-version "0.1"
+version "1.0"
 group "micronaut.test"
 
 repositories {
@@ -26,9 +26,9 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-validation"
     annotationProcessor "io.micronaut.configuration:micronaut-openapi"
     annotationProcessor "io.micronaut:micronaut-graal"
-    implementation "io.micronaut:micronaut-tracing"
+    annotationProcessor "io.micronaut:micronaut-security"
+    implementation "io.micronaut:micronaut-security"
     implementation "org.graalvm.nativeimage:svm"
-    implementation "io.micronaut.configuration:micronaut-aws-common"
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation 'io.reactivex.rxjava2:rxjava:2.2.16'
     implementation "io.micronaut:micronaut-inject"
@@ -36,13 +36,13 @@ dependencies {
     implementation "io.micronaut:micronaut-runtime"
     implementation "io.micronaut:micronaut-management"
     implementation "io.swagger.core.v3:swagger-annotations"
-    implementation 'io.micronaut:micronaut-views'
-    implementation "io.micronaut:micronaut-security-jwt"
+    implementation "io.micronaut:micronaut-views"
     implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut.kubernetes:micronaut-kubernetes-discovery-client"
     implementation "io.micronaut:micronaut-http-server-netty"
     implementation "javax.annotation:javax.annotation-api"
     implementation "com.google.guava:guava:28.2-jre"
+    runtime 'com.github.jknack:handlebars:4.1.0'
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"

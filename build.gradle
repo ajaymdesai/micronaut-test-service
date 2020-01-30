@@ -55,8 +55,9 @@ dependencies {
 test.classpath += configurations.developmentOnly
 
 mainClassName = "com.ajaymdesai.micronaut.test.Application"
-// use JUnit 5 platform
+
 test {
+    useJUnit()
     useJUnitPlatform()
 }
 tasks.withType(JavaCompile){

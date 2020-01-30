@@ -10,6 +10,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.context.ServerRequestContext;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 
 @Validated
-@Secured("isAnonymous()")
+@Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller(value = "/greet", produces = MediaType.APPLICATION_JSON)
 public class GreetingController {
 
@@ -36,13 +37,6 @@ public class GreetingController {
     @Get(value = "/{name}")
     public Single<Greeting> greet(@NotNull final String name) {
         Optional<HttpRequest<Object>> request = ServerRequestContext.currentRequest();
-        if (LOG.isInfoEnabled()) {
-            if (request.isPresent()) {
-                LOG.info("Tracing request: " +
-                    request.get().getHeaders().findFirst("x-request-id").orElse("foo"));
-            }
-            LOG.info(Long.toString(Thread.currentThread().getId()));
-        }
         return Single.just(new Greeting().withName(name));
     }
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-import java.util.Base64;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,24 +18,34 @@ public class GreetingControllerTest {
     @Inject
     GreetingClient client;
 
-    String credsEncoded = "Basic " + Base64.getEncoder().encodeToString("admin:password".getBytes());
-
     @Test
     public void testGreeting() {
-        String response = client.index(credsEncoded).blockingGet();
+        String response = client.greet().blockingGet();
         assertEquals("Hello World", response);
     }
 
     @Test
     public void testGreetingWithName() {
-        Greeting response = client.greet(credsEncoded, "Norbert").blockingGet();
+        Greeting response = client.greet(UUID.randomUUID().toString(),"Norbert").blockingGet();
         assertEquals("Norbert", response.getName());
         assertEquals("Hello", response.getGreeting());
     }
 
     @Test
     public void echoTextTest() {
-        String response = client.echo(credsEncoded,"foo");
+        String response = client.echo("foo").blockingGet();
         assertEquals("foo", response);
+    }
+
+    @Test
+    public void echoStreamTest() {
+        String response = client.echoStream("foo").blockingGet();
+        assertEquals("foo", response);
+    }
+
+    @Test
+    public void echoJsonTest() {
+        Greeting response = client.echoJson(new Greeting().withGreeting("Yo")).blockingGet();
+        assertEquals("Yo", response.getGreeting());
     }
 }

@@ -23,7 +23,7 @@ import java.util.Optional;
 
 
 @Validated
-@Secured(SecurityRule.IS_AUTHENTICATED)
+@Secured(SecurityRule.IS_ANONYMOUS)
 @Controller(value = "/greet", produces = MediaType.APPLICATION_JSON)
 public class GreetingController {
 
@@ -40,19 +40,20 @@ public class GreetingController {
         return Single.just(new Greeting().withName(name));
     }
 
-    @Post(value = "/echo", consumes = MediaType.TEXT_PLAIN)
-    public String echo(@Size(max = 1024) @Body final String text) {
-        return text;
+    @Post(value = "/echo", consumes = MediaType.TEXT_PLAIN, produces = MediaType.TEXT_PLAIN)
+    public Single<String> echo(@Size(max = 1024) @Body final String text) {
+        return Single.just(text);
     }
 
-    @Post(value = "/echo-stream", consumes = MediaType.APPLICATION_OCTET_STREAM)
+    @Post(value = "/echo-stream",
+        consumes = MediaType.APPLICATION_OCTET_STREAM,
+        produces = MediaType.APPLICATION_OCTET_STREAM)
     public Single<MutableHttpResponse<String>> echoFlow(
         @Body final Flowable<String> text) {
         return text.collect(
             StringBuffer::new,
             StringBuffer::append).map(
-            (buffer) -> HttpResponse.ok(buffer.toString()
-            )
+            (buffer) -> HttpResponse.ok(buffer.toString())
         );
     }
 

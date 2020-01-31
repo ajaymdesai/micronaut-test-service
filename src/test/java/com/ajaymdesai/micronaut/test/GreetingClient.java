@@ -8,20 +8,28 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.client.annotation.Client;
 import io.reactivex.Single;
 
-import javax.validation.constraints.Size;
-import java.util.UUID;
-
-@Client("/greet")
+@Client("/")
 public interface GreetingClient {
 
     @Get
-    Single<String> index(@Header("Authorization") String authorization);
+    Single<String> index();
 
-    @Get(value = "/{name}")
-    @Header(name="x-request-id", value = "123-456-7234")
-    Single<Greeting> greet(@Header("Authorization") String authorization, String name);
+    @Get("/greet")
+    Single<String> greet();
 
-    @Post(value = "/echo", processes = MediaType.TEXT_PLAIN)
-    public String echo(@Header("Authorization") String authorization, @Body final String text);
+    @Get(value = "/greet/{name}")
+    Single<Greeting> greet(@Header("x-request-id") String requestId, String name);
+
+    @Post(value = "/greet/echo", processes = MediaType.TEXT_PLAIN)
+    public Single<String> echo(@Body final String text);
+
+    @Post(value = "/greet/echo-stream", processes = MediaType.APPLICATION_OCTET_STREAM)
+    public Single<String> echoStream(@Body final String buffer);
+
+    @Post(value = "/greet/echo-json", processes = MediaType.APPLICATION_JSON)
+    public Single<Greeting> echoJson(@Body final Greeting greet);
+
+    @Get("/api")
+    public String swaggerUI(@Header("Authorization") final String authorization);
 }
 

@@ -3,6 +3,7 @@ package com.ajaymdesai.micronaut.test.swagger;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -16,7 +17,7 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 
 @Hidden
-@Secured("isAuthenticated()")
+@Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/api")
 @Validated
 public class SwaggerController {
